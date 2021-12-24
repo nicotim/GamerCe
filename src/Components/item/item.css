@@ -1,0 +1,44 @@
+body {
+    margin: 2rem;
+}
+
+.card { 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 12rem));
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.card__body {
+    overflow: hidden;
+    box-shadow: lightgray;
+    border-radius:10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.card img {
+    height: 16rem;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card h1 {
+    padding: 1rem;
+}
+
+.card p {
+    padding: 0 1rem;
+}
+
+.description{
+    margin:10px 0;
+}
+
+.price {
+    margin:10px 0;
+}
+
