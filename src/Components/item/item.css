@@ -1,5 +1,5 @@
 body {
-    margin: 2rem;
+    margin-top: 2rem;
 }
 
 .card { 
@@ -28,7 +28,14 @@ body {
 
 .card h1 {
     padding: 1rem;
+    font-size: 30px;
 }
+
+.card h2 {
+    padding: 1.2rem;
+    font-size: 24px;
+}
+
 
 .card p {
     padding: 0 1rem;
@@ -36,9 +43,9 @@ body {
 
 .description{
     margin:10px 0;
+    font-size: 20px;
 }
 
 .price {
     margin:10px 0;
 }
-

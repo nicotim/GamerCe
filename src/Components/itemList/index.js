@@ -3,7 +3,7 @@ import Item from "../item";
 const ItemList = ({items}) => {
     return (
     <>
-    {items.map((item) => {return <Item key={item.id} item={item}/>})}
+    {items.map((item) => {return <Item item={item} key={item.id}/>})}
     </> )
 };
 

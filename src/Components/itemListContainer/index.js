@@ -1,19 +1,35 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MockedItems from "../../mock/MockedItems";
 import ItemList from "../itemList";
-
+import { useParams } from "react-router-dom";
 
 const ItemListContainer = () => {
-    
     const [items, setItems] = useState([]);
-    useEffect(() => {
-        const itemPromise = new Promise((res, rej) => {
-            res(MockedItems);
-        });
-        itemPromise.then((res) => setItems(res));
-    }, [items]);
+    const { catId } = useParams();
 
-    return ( <ItemList items={items}/>)
-};
+    useEffect(() => {
+        const getItems = new Promise((res) => {
+            setTimeout(() => {
+                const myData = catId 
+                ? MockedItems.filter((item) => item.category === catId ) 
+                : MockedItems;
+                
+                res(myData);
+            }, 1000 )
+        });
+
+        getItems.then((res) => {
+            setItems(res);
+        });
+
+    },[catId]);
+
+    return (
+        <>
+        <ItemList items={items}/>
+        </>
+    )
+
+}
 
 export default ItemListContainer;
