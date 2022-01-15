@@ -22,9 +22,11 @@ return (
                         <Link to={cat.address}>{cat.text}</Link>
                     </div>
                 );
-            }
-            )}    
-        <CartWidget/>
+            })}
+            
+        <Link to="/cart">    
+            <CartWidget/>
+        </Link>
         </nav>
     </div>
 )

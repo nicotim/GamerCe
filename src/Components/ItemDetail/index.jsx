@@ -1,7 +1,7 @@
 import "../item/item.css";
 import React from "react";
 
-const ItemDetail = ({
+export const ItemDetail = ({
     id,
     name,
     category,
@@ -20,5 +20,3 @@ const ItemDetail = ({
         </div>
     );
 };
-
-export default ItemDetail;
