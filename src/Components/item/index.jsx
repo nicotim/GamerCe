@@ -8,7 +8,7 @@ const Item = ({item}) => {
     <NavLink to={`/product/${item.id}`} class="items">
         <div class="card">
             <div class="card__body">
-                <img src={item.imgURL} alt={item.name}/>
+                <img src={item.img} alt={item.name}/>
                 <span>{item.name}</span>
                 <p class="price">Precio del producto: ${item.price}</p>
                 <button>Comprar</button>

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import MockedItems from "../../mock/MockedItems";
 import { ItemDetail } from "../../Components/ItemDetail";
 import { useParams } from "react-router-dom";
+import { getFriestore } from "../../Firebase";
 
 const ItemDetailContainer = () => {
     const [productos, setProduct] = useState([]);
-    const {itemId} = useParams();
 
-    useEffect(() => {
+    /* useEffect(() => {
         const myPromise = new Promise((res, rej) => {
             res(MockedItems)
         });
@@ -16,7 +15,16 @@ const ItemDetailContainer = () => {
              return element.id === itemId;
             });
             setProduct(single)
-        })},[]);
+        })},[]); */
+
+        useEffect(() => {
+            const bd = getFriestore();
+            const itemCollection = bd.collection("items");
+            itemCollection.get().then((value) => {
+                let single = value.docs.map((e) => {return e.data()})
+            setProduct(single)
+            })
+        },[])
 
     return (  <ItemDetail productos={productos}/>)
 

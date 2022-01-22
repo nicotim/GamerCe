@@ -1,28 +1,18 @@
 import React, { useEffect, useState } from "react";
-import MockedItems from "../../mock/MockedItems";
 import { ItemList } from "../../Components/itemList";
-import { useParams } from "react-router-dom";
-
+import { getFriestore } from "../../Firebase";
 
 const ItemListContainer = () => {
     const [items, setItems] = useState([]);
-    const { nombre } = useParams();
 
     useEffect(() => {
-        const getItems = new Promise((res) => {
-            res(MockedItems);
-        });
-        if (nombre) {
-            getItems.then(function (res) {
-                let match = res.filter((element) => {
-                return element.category === nombre}
-                );
-            setItems(match);
-            });
-        }else{
-            getItems.then((res) => setItems(res));
-        }
-    }, [items]);
+        const bd = getFriestore();
+        const itemCollection = bd.collection("items");
+        itemCollection.get().then((value) => {
+            let aux = value.docs.map((e) => {return {...e.data(), id: e.id}})
+        setItems(aux)
+        })
+    },[])
 
     return (
         <>
