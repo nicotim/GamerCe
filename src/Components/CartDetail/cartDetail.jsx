@@ -1,42 +1,42 @@
-import { CartContext } from "../../Context/cartContext";
+import { cartContext } from "../../Context/cartContext";
 import { useContext } from "react";
+import { Button } from "react-bootstrap";
 
 const CartDetail = () => {
-    const {item, setItem} = useContext(CartContext);
+    const {product} = useContext(cartContext);
 
-    const itemTotal = (item) => {
-        return item.items.price * item.quantity; 
+    const itemTotal = (product) => {
+        return product.productos.precio * product.cantidad; 
     };
 
-    const sumaTotal = (item) => {
+    const sumaTotal = (product) => {
         var total = 0;
-        for (let i = 0; i < item; i++) {
-            total = total + item[i].items.price * item.quantity; 
+        for (let i = 0; i < product; i++) {
+            total = total + product[i].productos.precio * product.cantidad; 
         }
         return total;
     };
 
     return (
         <>
-            {item.map((item) => {
+            {product.map((product) => {
                 return (
                     <tr>
-                        <td>{item.items.name}</td>
-                        <td>{item.quantity}</td>
-                        <td>{itemTotal(item)}</td>
+                        <td>{product.productos.nombre}</td>
+                        <td>{product.cantidad}</td>
+                        <td>{itemTotal(product)}</td>
                     <td>
-                        <button>Eliminar</button>
+                        <Button>Eliminar</Button>
                     </td>
                     </tr>
                 );
                 })}
-
                 <td></td>
                 <td></td>
                 <td>
                     <p>Precio Final</p>
                 </td>
-                <td>{sumaTotal(item)}</td>
+                <td>{sumaTotal(product)}</td>
         </>
     );
 };

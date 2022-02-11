@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { CartContext } from "../../Context/cartContext";
-import CartDetail from "../CartDetail/cartDetail"
+import {Table, Button} from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import { cartContext } from "../../Context/cartContext";
+import CartDetail from "../CartDetail/cartDetail";
 
 const Cart = () => {
-    const {product, setProduct, clearCart} = useContext(CartContext);
-    const CartContextUse = useContext(CartContext);
-    console.log(CartContextUse)
+    const {product, clearCart} = useContext(cartContext);
+    const CartContextUse = useContext(cartContext);
 
     const onClear = () => {
         clearCart();
@@ -14,23 +15,30 @@ const Cart = () => {
     if (product.lenght > 0) {
         return (
             <>
+                <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>Products</th>
+                            <th>Procudto</th>
                             <th>Cantidad</th>
-                            <th>Precio Total</th>
+                            <th>Precio total</th>
                         </tr>
                     </thead>
                 <tbody>
                 <CartDetail />    
                 </tbody>
-            <button onClick={onClear}>Limpiar Carrito</button>
+                </Table>
+            <Button onClick={onClear}>Limpiar Carrito</Button>
             </>
         );
     }else{
         return (
             <>
-               <h2>No hay items en el carrito</h2>
+            <div className="d-flex justify-content-center">
+               <h2>No hay items</h2>
+            </div>
+            <div className="d-flex justify-content-center">
+               <NavLink to="/">Volver a la pagina de compras</NavLink>
+            </div>
             </>
         );
     };

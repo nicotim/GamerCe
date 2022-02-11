@@ -1,27 +1,37 @@
 import { useEffect, useState } from "react"
-import Item from "../Components/item";
+import { NavLink } from "react-router-dom";
+import { NavDropdown} from "react-bootstrap";
 
-const Generos = [
-    {catId:1, category:"A"},
-    {catId:2, category:"B"},
+const Categorias = [
+    {catId:1, nombre:'Accion'},
+    {catId:2, nombre:'Aventura'},
 ];
 
-function Category() {
-    const[categories, setCategories] = useState([]);
+function Categoria() {
+    const[categorias, setCategorias] = useState([]);
 
     useEffect(() => {
         const catPromise = new Promise((res, rej) => {
-            res(Generos);
+            res(Categorias);
         });
-        catPromise.then((res) => setCategories(res));
+        catPromise.then((res) => setCategorias(res));
     },[]);
 
     return (
         <>
-            {categories.map((Generos) => 
-            <Item to={`/categoria/${Generos.category}`} key={Generos.catId}/>)};
+            {categorias.map((categorias) => {
+                return (
+                    <NavDropdown.Item 
+                        as={NavLink}
+                        to={`/categoria/${categorias.nombre}`}
+                        key={categorias.catId}
+                        >
+                        {categorias.nombre}
+                    </NavDropdown.Item>
+                );
+            })};
         </>
     );
 };
 
-export default Category;
+export default Categoria;

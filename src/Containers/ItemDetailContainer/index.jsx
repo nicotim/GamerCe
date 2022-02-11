@@ -1,33 +1,29 @@
 import { useEffect, useState } from "react";
-import { ItemDetail } from "../../Components/ItemDetail";
+import ItemDetail from "../../Components/ItemDetail";
 import { useParams } from "react-router-dom";
-import { getFriestore } from "../../Firebase";
+import { Items } from "../../mock/MockedItems";
 
-const ItemDetailContainer = () => {
-    const [productos, setProduct] = useState([]);
+function ItemDetailContainer() {
+    const[productos, setProductos] = useState([]);
+    const { productID } = useParams();
 
-    /* useEffect(() => {
+    useEffect(() => {
         const myPromise = new Promise((res, rej) => {
-            res(MockedItems)
+            res(Items);
         });
-        myPromise.then(function (res) {
-            let single = res.find((element) => {
-             return element.id === itemId;
+        myPromise.then(function(res) {
+            let singleItem = res.find((elem) => {
+                return elem.productID == productID;
             });
-            setProduct(single)
-        })},[]); */
+            setProductos(singleItem)
+        });
+    },[productID]);
 
-        useEffect(() => {
-            const bd = getFriestore();
-            const itemCollection = bd.collection("items");
-            itemCollection.get().then((value) => {
-                let single = value.docs.map((e) => {return e.data()})
-            setProduct(single)
-            })
-        },[])
-
-    return (  <ItemDetail productos={productos}/>)
-
-};
+    return (
+        <>
+        <ItemDetail productos={productos}/>
+        </>
+    );
+}
 
 export default ItemDetailContainer;

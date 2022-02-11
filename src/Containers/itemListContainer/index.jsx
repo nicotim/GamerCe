@@ -1,25 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { ItemList } from "../../Components/itemList";
-import { getFriestore } from "../../Firebase";
+import ItemList from "../../Components/itemList/index";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import { Items }  from "../../mock/MockedItems";
+import { useParams } from "react-router-dom";
 
-const ItemListContainer = () => {
-    const [items, setItems] = useState([]);
+function ItemListContainer() {
+    const [productos, setProductos] = useState([]);
+    const { nombre } = useParams();
 
     useEffect(() => {
-        const bd = getFriestore();
-        const itemCollection = bd.collection("items");
-        itemCollection.get().then((value) => {
-            let aux = value.docs.map((e) => {return {...e.data(), id: e.id}})
-        setItems(aux)
-        })
-    },[])
+        const myPromise = new Promise((res, rej) => {
+            res(Items);
+        });
+
+    if (nombre) {
+        myPromise.then(function (res) {
+            let match = res.filter((elem) => {
+                return elem.categoria === nombre;
+            });
+            setProductos(match);
+        });
+    }else{
+        myPromise.then((res) => setProductos(res));
+         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[productos]);
 
     return (
         <>
-        <ItemList items={items}/>
+            <Container className="p-2">
+                <Row xs={1} sm={2} md={3} lg={4}>
+                    <ItemList productos={productos}/>
+                </Row>
+            </Container>
         </>
     );
-
 };
 
 export default ItemListContainer;
